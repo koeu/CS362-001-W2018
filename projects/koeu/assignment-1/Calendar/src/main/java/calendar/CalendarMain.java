@@ -33,7 +33,7 @@ public class CalendarMain {
 		//get todays date
     	Calendar rightnow = Calendar.getInstance();
     	//current month/year/date is today
-    	thisMonth = rightnow.get(Calendar.MONTH)+1;
+    	thisMonth = rightnow.get(Calendar.MONTH);
 		thisYear = rightnow.get(Calendar.YEAR);
 		thisDay = rightnow.get(Calendar.DAY_OF_MONTH);
 		

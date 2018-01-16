@@ -110,7 +110,7 @@ public class Appt implements  Comparable<Appt>{
      * @sets valid to true if the appointment is valid
      */
     private void isValid() {
-    	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth-1);
+    	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth);
     				
     	if(startHour<0 || startHour>23)
     		this.valid=false;
@@ -121,7 +121,7 @@ public class Appt implements  Comparable<Appt>{
             	if(startDay<1 || startDay>NumDaysInMonth)
             		this.valid=false;
             	else
-                	if(startMonth<1 || startMonth>12)
+                	if(startMonth<0 || startMonth>11)
                 		this.valid=false;
                 	else
                 		this.valid=true;
@@ -296,7 +296,7 @@ public class Appt implements  Comparable<Appt>{
 		if (!getValid()) {
 		    return null;
 		}
-         String day= this.getStartMonth()+"/"+this.getStartDay()+"/"+this.getStartYear() + " at ";
+         String day= this.getStartMonth()+1+"/"+this.getStartDay()+"/"+this.getStartYear() + " at ";
         return "\t"+ day +  this.represntationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
     }
 
@@ -305,14 +305,14 @@ public class Appt implements  Comparable<Appt>{
 	public int compareTo(Appt compareAppt) {
 		int startMinute=	this.startMinute - ((Appt) compareAppt).getStartMinute();
 		int startHour=	this.startHour - ((Appt) compareAppt).getStartHour();
-		int day = this.startDay()-((Appt) compareAppt).getStartDay();
+		int day = this.startDay-((Appt) compareAppt).getStartDay();
 		int month = this.startMonth -((Appt) compareAppt).getStartMonth();
 		int year = this.startYear -((Appt) compareAppt).getStartYear();
 
 
 		//ascending order
 
-		return startMinute+startHour+day+month+year;
+		return startMinute+startHour*100+day*10000+month*1000000+year*100000000;
 
 	}
 
