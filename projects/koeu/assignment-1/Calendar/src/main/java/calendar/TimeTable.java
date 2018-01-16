@@ -46,7 +46,7 @@ public class TimeTable {
 	        while (nextDay.before(lastDay)) {
 
 	            calDays.add(new CalDay(nextDay));
-	            nextDay.add(nextDay.DAY_OF_MONTH, 1);
+	            nextDay.add(Calendar.DAY_OF_MONTH, 1);
 	        }
 	        
 	        //Retrieve the appts - <appt> 
@@ -68,7 +68,7 @@ public class TimeTable {
 
 				while (nextDay.before(apptOccursOn)) {
 					daysDifference++;
-					nextDay.add(nextDay.DAY_OF_MONTH, 1);
+					nextDay.add(Calendar.DAY_OF_MONTH, 1);
 				}
 
 				CalDay calDayOfAppt = (CalDay) calDays.get(daysDifference);
@@ -153,15 +153,15 @@ public class TimeTable {
 	                //first occurrence
 	                if (recurDays.length == 0) {
 	                    //Add 7 days and return that by default
-	                    nextDay.add(nextDay.DAY_OF_MONTH, 7);
+	                    nextDay.add(Calendar.DAY_OF_MONTH, 7);
 	                    return nextDay;
 	                }
 	                
 	                //The user did specify weekly recurrence, so increment the
 	                //day until it falls on a weekday the user specified
 	                for (int k = 0; k < 7; k++) {
-	                    nextDay.add(nextDay.DAY_OF_MONTH, 1);
-	                    int newDayOfWeek = nextDay.get(nextDay.DAY_OF_WEEK);
+	                    nextDay.add(Calendar.DAY_OF_MONTH, 1);
+	                    int newDayOfWeek = nextDay.get(Calendar.DAY_OF_WEEK);
 	                
 	                    for (int i = 0; i < recurDays.length; i++) {
 	                        //If the calendar is set to a day of the week that the
@@ -179,12 +179,12 @@ public class TimeTable {
 	            case Appt.RECUR_BY_MONTHLY:
 	                //Just increment the month and return the day. Not sure what
 	                //happens when the day is 31 and the next month has 30 days...
-	                nextDay.add(nextDay.MONTH, 1);
+	                nextDay.add(Calendar.MONTH, 1);
 	                return nextDay;
 	            case Appt.RECUR_BY_YEARLY:
 	                //Just increment the year. The only possible problem is an 
 	                //appointment that recurs on February 29.
-	                nextDay.add(nextDay.YEAR, 1);
+	                nextDay.add(Calendar.YEAR, 1);
 	                return nextDay;
 	        }
 	  
@@ -207,7 +207,7 @@ public class TimeTable {
 
 	        //Remove the appointment from the list appts if applicable
 	        
-	        for(int i=1;i<appts.size()-1;i++){
+	        for(int i=0;i<appts.size();i++){
 	        	Appt tempAppt=appts.get(i);
 	        	if(tempAppt.equals(appt)){
 	        		appts.remove(i);
@@ -233,7 +233,7 @@ public class TimeTable {
 	    	for(int i = 0;i<pv.length;i++){
 	    	    int newi = pv[nexti];
 	    	    newi = pv[nexti];
-	    	   Collections.swap(apptsUpdatedList,newi,newi);
+	    	   Collections.swap(apptsUpdatedList,newi,nexti);
 	    	   nexti = newi;
 	    	} 
      		return apptsUpdatedList;
