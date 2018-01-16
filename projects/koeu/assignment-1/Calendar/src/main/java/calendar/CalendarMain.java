@@ -141,8 +141,8 @@ public class CalendarMain {
 		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
 		GregorianCalendar tomorrow = (GregorianCalendar)today.clone();
 		tomorrow.add(Calendar.DAY_OF_MONTH,1);
-		String todatDate=today.get(Calendar.MONTH)+ "/"+ today.get(Calendar.DAY_OF_MONTH)+"/"+today.get(Calendar.YEAR);
-		String tomorrowDate=tomorrow.get(Calendar.MONTH)+ "/"+ tomorrow.get(Calendar.DAY_OF_MONTH)+"/"+tomorrow.get(Calendar.YEAR);
+		String todatDate=today.get(Calendar.MONTH)+1+ "/"+ today.get(Calendar.DAY_OF_MONTH)+"/"+today.get(Calendar.YEAR);
+		String tomorrowDate=tomorrow.get(Calendar.MONTH)+1+ "/"+ tomorrow.get(Calendar.DAY_OF_MONTH)+"/"+tomorrow.get(Calendar.YEAR);
 
 		if(diagnose){
 			System.out.println("today is:" + todatDate);
