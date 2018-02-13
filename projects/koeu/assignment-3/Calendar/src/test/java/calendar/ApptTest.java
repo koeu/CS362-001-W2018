@@ -10,7 +10,7 @@ import java.util.Collections;
 
 import static org.junit.Assert.*;
 public class ApptTest {
-
+    /*================================================================================*/
     @Test
       /**
        * Test that the gets/sets methods work as expected.
@@ -70,7 +70,7 @@ public class ApptTest {
         System.out.println(appt.toString());
 
       }
-
+    /*================================================================================*/
     @Test
       /**
        * Test that the isValid() methods work as expected.
@@ -132,7 +132,7 @@ public class ApptTest {
         appt.setStartDay(startDay);
       
       }
-
+    /*================================================================================*/
     @Test
       /**
        * Test that the recurring events and sort methods work as expected.
@@ -158,7 +158,7 @@ public class ApptTest {
                              title,
                              description);
 
-        int[] recurDaysArr={1,3,5};  // Every Monday, Wednesday, Friday 
+        int[] recurDaysArr={1,3,5};  /*  Every Monday, Wednesday, Friday  */
         appt.setRecurrence( recurDaysArr, Appt.RECUR_BY_WEEKLY, 2, 10);
 
         listAppts.add(appt);
@@ -171,7 +171,7 @@ public class ApptTest {
 
         int[] recurDaysArr1= appt.getRecurDays();
 
-        //--------------------------------------------------------
+        /*---------------------------------------------------------*/ 
 
         startHour=11;
         startMinute=20;
@@ -188,20 +188,127 @@ public class ApptTest {
                              title,
                              description);
  
-        recurDaysArr=null;  // every week  
+        recurDaysArr=null;  /* every week  */
         appt.setRecurrence( recurDaysArr, Appt.RECUR_BY_WEEKLY, 2, Appt.RECUR_NUMBER_FOREVER);
         listAppts.add(appt);
 
-        //-------------    Sort test   ----------------------
+        /*-------------    Sort test   ----------------------*/
         System.out.println("The Appointments are not sorted!");
         System.out.println(listAppts.toString());
     
-        Collections.sort(listAppts);   // Sort   
+        Collections.sort(listAppts);   /* Sort   */
         System.out.println("The Appointments are sorted!");
         System.out.println(listAppts.toString());
 
       }
-    
-}
+
+    /*================================================================================*/
+
+    @Test
+
+      /*************************************************************************
+       *  Branch Coverage = 93%    Line Coverage=99%  Mutation Coverage=51% 
+       *  Final mutation rates =   Line Coverage=99%  Mutation Coverage=99% (66/67)
+       *  Add new unit tests to improve the mutation rate 
+       *************************************************************************/
+ 
+      public void Add_New_test01()  throws Throwable  {
   
 
+        /*----------  represntationApp() , toString()  Mutation Coverage  ----------*/
+        Appt appt = new Appt(12 , 50, 6, 2 ,2018 ,"Test-Title","Test-Description");
+
+        appt.setStartHour(11);
+        appt.setStartMinute(12);
+        appt.setStartDay(13);
+        appt.setStartMonth(2);
+        appt.setStartYear(2018);
+        appt.setTitle("Test-Title");
+        appt.setDescription("Test-Description");
+
+        /*  Line 101  Mutation Coverage */
+        assertEquals(0, appt.getRecurDays().length);  /* int[] recurringDays = new int[0]; */
+        assertEquals(0, appt.getRecurNumber());       /* RECUR_NUMBER_NEVER = 0            */
+        assertEquals(2, appt.getRecurBy());           /* RECUR_BY_MONTHLY = 2              */
+        assertEquals(0, appt.getRecurIncrement());    /* 0                                 */
+
+
+        assertEquals("\t"+"2/13/2018 at 11:12am ,Test-Title, Test-Description"+"\n",appt.toString());
+ 
+	appt.setStartHour(23);   /*  Line 284  Mutation Coverage */
+	assertNotNull(appt.toString());
+        assertEquals("\t"+"2/13/2018 at 11:12pm ,Test-Title, Test-Description"+"\n",appt.toString());
+
+        /*----------    Line 115  - startHour  Mutation Coverage     ----------*/
+        /* if(startHour<0 || startHour>23) =>  (startHour>=0 , startHour<=23)  */
+        appt.setStartHour(0);    assertTrue(appt.getValid());
+        appt.setStartHour(1);    assertTrue(appt.getValid());
+        appt.setStartHour(22);   assertTrue(appt.getValid());
+        appt.setStartHour(23);   assertTrue(appt.getValid());
+
+        /*----------  Line 118  - startMinute  Mutation Coverage           ----------*/
+        /* if(startMinute<0 || startMinute>59) => (startMinute>=0 , startMinute<=59) */
+        appt.setStartMinute(0);    assertTrue(appt.getValid());
+        appt.setStartMinute(59);   assertTrue(appt.getValid());
+
+        /*----------  Line 121  - startDay  Mutation Coverage  ----------*/
+        /* if(startDay<1 || startDay>NumDaysInMonth) => (startDay>=1 ,startDay<=NumDaysInMonth) */
+        appt.setStartYear(2018);          
+        appt.setStartMonth(2);    /* February 28th */
+
+        appt.setStartDay(1);   assertTrue(appt.getValid()); 
+        appt.setStartDay(28);  assertTrue(appt.getValid()); 
+
+        /*----------  Line 113,124 - startMonth  Mutation Coverage  ----------*/
+        /* if(startMonth<1 || startMonth>12) => (startMonth>=1 , startMonth<=12) */
+
+        appt.setStartMonth(1);   assertTrue(appt.getValid());
+        appt.setStartMonth(12);  assertTrue(appt.getValid());
+
+
+        /*----------  Line 221,227 - startMonth  Mutation Coverage  ----------*/
+        int[] recurDaysArr={1,3,5};  /* Every Monday, Wednesday, Friday */
+        appt.setRecurrence( recurDaysArr, 1, 2, 10);
+        assertEquals(1,  appt.getRecurDays()[0]);  /*## Line 221, 227  Mutation Coverage */
+
+
+        /*----------    compareTo(Appt compareAppt)  Mutation Coverage  ----------*/
+        Appt appt1=new Appt(13, 30, 11, 2, 2018, "Title-1", "Description-1");
+        Appt appt2=new Appt(14 ,29, 14, 1, 2016, "Title-2", "Description-2");
+
+        int difference = appt1.compareTo(appt2);
+        assertEquals(0, difference);
+
+        /*-----------------------------------------------------------------------------------  
+        appt1-appt2  => day 13-14=-1  month 30-29=1  
+        ex)  return startMinute + startHour*60 + day*60*24 + month*60*24*31 +year*60*24*31*12;
+        -------------------------------------------------------------------------------------*/
+
+        /*----------    CalendarUtil.java   Line and Mutation Coverage  ----------*/
+        CalendarUtil Util=new CalendarUtil();
+        assertEquals(28, Util.NumDaysInMonth(1900,1)); /* Not a leap year */
+        assertEquals(29, Util.NumDaysInMonth(2000,1)); /* -- leap year -- */
+
+        assertEquals(28, Util.NumDaysInMonth(2100,1)); /* Not a leap year */
+        assertEquals(28, Util.NumDaysInMonth(2200,1)); /* Not a leap year */
+        assertEquals(28, Util.NumDaysInMonth(2300,1)); /* Not a leap year */
+        assertEquals(28, Util.NumDaysInMonth(2018,1)); /* Not a leap year */ 
+        assertEquals(29, Util.NumDaysInMonth(2020,1)); /* -- leap year -- */
+   }
+
+    /*================================================================================*/
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+      public void Add_New_test02()  throws Throwable  {
+        Appt appt = new Appt(12 , 50, 8, 2 ,2018 ,"Test-Title","Test-Description");
+
+        appt.setStartMonth(13);   /* Line 153  Mutation Coverage */
+        assertFalse(appt.getValid());
+        appt.setStartMonth(-1);
+        assertFalse(appt.getValid());
+	 
+      }
+    
+}
+
+ 

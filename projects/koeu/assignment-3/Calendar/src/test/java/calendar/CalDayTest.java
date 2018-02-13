@@ -12,18 +12,18 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CalDayTest {
-
+    /*================================================================================*/
     @Test
 	/* 
- 	 * Test that the CalDay(GregorianCalendar cal), addAppt(), toString(), 
- 	 * iterator() and getSizeAppts() methods worked as expected.
- 	 */ 
+         * Test that the CalDay(GregorianCalendar cal), addAppt(), toString(), 
+         * iterator() and getSizeAppts() methods worked as expected.
+         */ 
       public void test01()  throws Throwable {
  
         Calendar rightnow = Calendar.getInstance();  /* get todays date */
-        int thisMonth = rightnow.get(Calendar.MONTH)+1;
-        int thisYear  = rightnow.get(Calendar.YEAR);
-        int thisDay   = rightnow.get(Calendar.DAY_OF_MONTH);
+        int thisMonth = 2;
+        int thisYear  = 2018;
+        int thisDay   = 9;
  
         GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
 
@@ -112,7 +112,7 @@ public class CalDayTest {
 
       }
 
-    /*---------------------------------------------------------------------*/
+    /*================================================================================*/
  
     @Test
       /**
@@ -131,19 +131,19 @@ public class CalDayTest {
            assertNull(calDays.get(i).iterator()); 
       }
  
-    /*---------------------------------------------------------------------*/
-
+    /*================================================================================*/
+ 
     @Test
        /**
-	* Test that the addAppt() if (appt.getValid()) methods worked as expected.
+        * Test that the addAppt() if (appt.getValid()) methods worked as expected.
         */
 
 	/* TEST addAppt(Appt appt) {if (appt.getValid()) } */
       public void test03()  throws Throwable  {
         Calendar rightnow = Calendar.getInstance();  
-        int thisMonth = rightnow.get(Calendar.MONTH)+1;
-        int thisYear  = rightnow.get(Calendar.YEAR);
-        int thisDay   = rightnow.get(Calendar.DAY_OF_MONTH);
+        int thisMonth = 2;
+        int thisYear  = 2018;
+        int thisDay   = 9;
  
         GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
 
@@ -172,7 +172,75 @@ public class CalDayTest {
 
         assertFalse(appt.getValid());  /* TEST */
       }
+    /*================================================================================*/
+
+   @Test
+
+      /*************************************************************************
+       *  Branch Coverage = 83%    Mutation Coverage=38% (10/26)
+       *  Final mutation rates =>  Mutation Coverage=88% (23/26)
+       *  Add new unit tests to improve the mutation rate 
+       *************************************************************************/
+ 
+      public void Add_New_test01()  throws Throwable  {
+  
+
+
+        Calendar rightnow = Calendar.getInstance();  
+        int thisMonth = 2;
+        int thisYear  = 2018;
+        int thisDay   = 9;
+ 
+        GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
+        GregorianCalendar tomorrow = (GregorianCalendar)today.clone();
+        tomorrow.add(Calendar.DAY_OF_MONTH,1);
+
+        /*----------  CalDay(GregorianCalendar cal) , toString()  Mutation Coverage  ----------*/
+        CalDay calDay1 = new CalDay(today);
+        assertEquals(thisYear,  calDay1.getYear());   
+        assertEquals(thisMonth, calDay1.getMonth());  
+        assertEquals(thisDay,   calDay1.getDay());   
+        assertTrue(calDay1.isValid());
+        assertEquals("\t --- " + thisMonth + "/" + thisDay + "/" + thisYear + " --- \n"+
+               " --- -------- Appointments ------------ --- \n\n", calDay1.toString());
+
+
+        Appt appt1 = new Appt( 12, 10, thisDay, thisMonth, thisYear,"title-1","description-1");
+        Appt appt2 = new Appt( 12, 20, thisDay, thisMonth, thisYear,"title-2","description-2"); 
+        Appt appt3 = new Appt( 10, 30, thisDay, thisMonth, thisYear,"title-3","description-3");  
+
+        calDay1.addAppt(appt1);
+        assertEquals(12, calDay1.appts.get(0).getStartHour());
+ 
+        assertEquals("\t --- " + thisMonth + "/" + thisDay + "/" + thisYear + " --- \n"+
+               " --- -------- Appointments ------------ --- \n"+
+               "\t"+"2/9/2018 at 12:10pm ,title-1, description-1\n \n", 
+               calDay1.toString());
+    
+        calDay1.addAppt(appt2);
+        assertEquals(12, calDay1.appts.get(0).getStartHour());
+ 
+        assertEquals("\t --- " + thisMonth + "/" + thisDay + "/" + thisYear + " --- \n"+
+               " --- -------- Appointments ------------ --- \n"+
+               "\t"+"2/9/2018 at 12:10pm ,title-1, description-1\n "+
+               "\t"+"2/9/2018 at 12:20pm ,title-2, description-2\n "+"\n",
+               calDay1.toString());
+ 
+        /*   Line 78  Mutation Coverage */
+        calDay1.addAppt(appt3);
+        assertEquals(10, calDay1.appts.get(0).getStartHour());
+ 
+        assertEquals("\t --- " + thisMonth + "/" + thisDay + "/" + thisYear + " --- \n"+
+               " --- -------- Appointments ------------ --- \n"+
+               "\t"+"2/9/2018 at 10:30am ,title-3, description-3\n "+
+               "\t"+"2/9/2018 at 12:10pm ,title-1, description-1\n "+
+               "\t"+"2/9/2018 at 12:20pm ,title-2, description-2\n "+"\n",
+               calDay1.toString());
+ 
+        assertEquals(3, calDay1.getAppts().size());  /*  Line 74,80  Mutation Coverage */
+        assertEquals(3, calDay1.getSizeAppts());     /*  Line 142    Mutation Coverage */
+      }
+
 }
 
-
-
+   
