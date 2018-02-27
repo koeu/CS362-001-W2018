@@ -17,10 +17,10 @@ import static org.junit.Assert.*;
 
 public class TimeTableRandomTest {
 
-  private static final long TestTimeout = 10; /* Timeout at x seconds */
+  private static final long TestTimeout = 20; /* Timeout at x seconds */
 
   /*--------------------------------------------------------------------------------*/  
-  /* Generate Random Tests that tests TimeTable Class.                */
+  /* Generate Random Tests that tests TimeTable Class.                              */
   /*--------------------------------------------------------------------------------*/ 
   @Test 
   public void radnomtest()  throws Throwable  {
@@ -72,7 +72,7 @@ public class TimeTableRandomTest {
       }  /* for k  */
 
       /*--------------------------------------------------------------------------------*/ 
-      /* Test public LinkedList<CalDay> getApptRange (....)               */
+      /* Test public LinkedList<CalDay> getApptRange (....)                             */
       /*--------------------------------------------------------------------------------*/ 
       int startDay  = random.nextInt(31)+1; 
       int startMonth  = random.nextInt(12)+1; 
@@ -94,7 +94,7 @@ public class TimeTableRandomTest {
     
 
       /*--------------------------------------------------------------------------------*/ 
-      /* Test public LinkedList<Appt> permute(LinkedList<Appt> appts, int[] pv)     */
+      /* Test public LinkedList<Appt> permute(LinkedList<Appt> appts, int[] pv)         */
       /*--------------------------------------------------------------------------------*/ 
       int   pvArray = random.nextInt(2)+listAppts.size();
       int[] pv    = ValuesGenerator.generateRandomArray(random, pvArray); 
@@ -108,7 +108,7 @@ public class TimeTableRandomTest {
 
 
       /*--------------------------------------------------------------------------------*/ 
-      /* Test public LinkedList<Appt> deleteAppt(LinkedList<Appt> appts,Appt appt)    */
+      /* Test public LinkedList<Appt> deleteAppt(LinkedList<Appt> appts,Appt appt)      */
       /*--------------------------------------------------------------------------------*/ 
       for (int k = 0; k < listAppts.size(); k++) {   
 		

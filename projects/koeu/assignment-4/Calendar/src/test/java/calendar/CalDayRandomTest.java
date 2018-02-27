@@ -16,10 +16,10 @@ import java.util.Random;
 /*============================================*/
 
 public class CalDayRandomTest {
-  private static final long TestTimeout = 3; /* Timeout at x seconds */
+  private static final long TestTimeout = 20; /* Timeout at x seconds */
 
   /*--------------------------------------------------------------------------------*/  
-  /* Generate Random Tests that tests CalDay Class.                 */
+  /* Generate Random Tests that tests CalDay Class.                                 */
   /*--------------------------------------------------------------------------------*/ 
   @Test 
   public void radnomtest()  throws Throwable  {

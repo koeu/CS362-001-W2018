@@ -15,11 +15,11 @@ import static org.junit.Assert.*;
 
 public class ApptRandomTest {
 
-  private static final long TestTimeout = 3; /* Timeout at x seconds */
+  private static final long TestTimeout = 20; /* Timeout at x seconds */
   private static final int  NUM_TESTS=10;
 
   /*--------------------------------------------------------------------------------*/ 
-  /* Return a randomly selected method to be tests !.                 */
+  /* Return a randomly selected method to be tests !.                               */
   /*--------------------------------------------------------------------------------*/ 
   public static String RandomSelectMethod(Random random){
 
@@ -47,7 +47,7 @@ public class ApptRandomTest {
     }  
 
   /*--------------------------------------------------------------------------------*/  
-  /* Return a randomly selected appointments to recur forever or Never recur  !.  */
+  /* Return a randomly selected appointments to recur forever or Never recur  !.    */
   /*--------------------------------------------------------------------------------*/ 
   public static int RandomSelectRecurForEverNever(Random random){
 
@@ -62,7 +62,7 @@ public class ApptRandomTest {
  
    
   /*--------------------------------------------------------------------------------*/  
-  /* Generate Random Tests that tests Appt Class.                   */
+  /* Generate Random Tests that tests Appt Class.                                   */
   /*--------------------------------------------------------------------------------*/ 
   @Test 
     public void radnomtest()  throws Throwable  {
