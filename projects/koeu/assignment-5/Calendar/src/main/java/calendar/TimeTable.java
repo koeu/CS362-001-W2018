@@ -97,7 +97,7 @@ public class TimeTable {
 	        
 	        //Get the first recurrence taken care of
 	        GregorianCalendar occurrenceDay = 
-	                new GregorianCalendar(appt.getStartYear(), appt.getStartMonth(), 
+	                new GregorianCalendar(appt.getStartYear(), appt.getStartMonth()-1, 
 	                    appt.getStartDay());
 	        
 	        //If the first occurrence is after the last day, then it doesn't matter
