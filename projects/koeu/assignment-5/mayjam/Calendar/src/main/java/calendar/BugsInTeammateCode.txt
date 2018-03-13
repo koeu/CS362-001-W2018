@@ -1,0 +1,27 @@
+1. There is an error in minute check in the method isValid(…) in the Appt.java.
+When the minute is set to 59, the result is “false”. However, it should be true. 
+Therefore, the line 118 in Appt.java should be changed. In addition, the month check should 
+be moved to above the “NumdaysInMonth” because there is an array Index Out Of Bounds Exception.
+
+Location of a bug:
+if(startMinute<0 || startMinute>=59)
+	this.valid=false;
+
+2. There is an error in sorting in the Appt.java. Sorting didn’t work appropriately.
+Appointments are not sorted as expected. This error is based on the line number 315 
+in Appt.java. Since there is no differences in dates (ex. 3+3+2018 = 4+2+2018), 
+the schedules cannot be sorted. Therefore, a certain number should be multiplied 
+to adjust the time variables. 
+
+Location of a bug:
+return startMinute+startHour+day+month+year;
+
+3. There is an error in deleting a schedule in the TimeTable.java.
+The deletion didn’t work appropriately. First or last schedule did not be deleted. 
+This error is from the line number 210 in TimeTable.java. The for-loop is from 1 to size-1. 
+However, the array is started from 0. In order to delete first/last schedule, 
+it needs to chagne the range of for-loop.
+
+Location of a bug:
+for(int i=1;i<appts.size()-1;i++)
+
