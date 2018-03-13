@@ -52,7 +52,7 @@ public class CalDay {
 	public CalDay(GregorianCalendar cal) {
 	
 		int day = cal.get(cal.DAY_OF_MONTH);
-		int month = cal.get(cal.MONTH);
+		int month = cal.get(cal.MONTH)+1;
 		int year = cal.get(cal.YEAR);
 	
 		setDay(day);
@@ -170,7 +170,7 @@ public class CalDay {
 	     StringBuilder sb = new StringBuilder();
 	
 		if (isValid()) {
-			String todayDate = (getMonth())+1 + "/" + getDay() + "/" + getYear();
+			String todayDate = (getMonth()) + "/" + getDay() + "/" + getYear();
 			sb.append("\t --- " + todayDate + " --- \n");
 			sb.append(" --- -------- Appointments ------------ --- \n");
 			Iterator<Appt> itr = this.appts.iterator();
